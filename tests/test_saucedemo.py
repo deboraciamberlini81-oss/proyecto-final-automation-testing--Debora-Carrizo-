@@ -1,10 +1,10 @@
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
 
-
-def test_login_saucedemo():
-    driver = webdriver.Chrome()
+def test_login_saucedemo(driver):
 
     driver.get("https://www.saucedemo.com/")
 
@@ -60,16 +60,16 @@ def test_login_saucedemo():
     
         # Ir al carrito
     driver.find_element(By.CSS_SELECTOR, "a.shopping_cart_link").click()
-
+    
     # Verificar que el producto esté en el carrito
-    producto_carrito = driver.find_element(
-        By.CSS_SELECTOR, "div.inventory_item_name"
+    producto_carrito = WebDriverWait(driver, 10).until(
+        EC.visibility_of_element_located(
+            (By.CSS_SELECTOR, ".cart_item .inventory_item_name")
+        )
     )
 
-    assert producto_carrito.text == nombre
+    nombre_carrito = producto_carrito.text
 
-    
+    assert nombre_carrito == nombre
+
     print("Test OK")
-    
-    time.sleep(5)
-    driver.quit()
