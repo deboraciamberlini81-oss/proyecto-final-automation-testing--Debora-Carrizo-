@@ -95,19 +95,30 @@ Se practicó la identificación de elementos HTML, la validación de selectores 
 El siguiente código comprueba los selectores CSS de usuario, contraseña y botón Login. Si encuentra los elementos, les aplica un cambio visual.
 
 ```javascript
-['#user-name', 'input[type="password"]', '.btn_action']
-.forEach(sel => {
-  const el = document.querySelector(sel);
+const selectores = [
+  "#user-name",
+  "#password",
+  "#login-button"
+];
 
-  if (el) {
-    el.style.background = 'khaki';
-    el.style.outline = '3px solid red';
+selectores.forEach((selector) => {
+  const elemento = document.querySelector(selector);
+
+  if (elemento) {
+    elemento.style.backgroundColor = "khaki";
+    elemento.style.outline = "3px solid red";
+    console.log("OK:", selector);
+  } else {
+    console.log("REVISAR:", selector);
   }
 });
-```
 
 **Resultado:** los tres selectores encuentran un elemento y se aplica un borde rojo para identificarlos visualmente. El fondo puede conservar un tono celeste debido al autocompletado de Chrome.
 
 ## 9. Conclusión final
 
-Se identificaron y comprobaron tres selectores CSS y sus correspondientes XPath relativos mediante Chrome DevTools. También se ejecutó un snippet masivo para localizar los elementos y comprobarlos visualmente antes de utilizarlos en pruebas automatizadas con Selenium.
+Se identificaron y documentaron tres selectores CSS y sus correspondientes expresiones XPath relativos para los campos de usuario, contraseña y el botón de inicio de sesión de SauceDemo.
+
+Se prepararon ejemplos de JavaScript para comprobar los selectores mediante Chrome DevTools y facilitar la identificación visual de los elementos antes de utilizarlos en pruebas automatizadas con Selenium.
+
+**Nota:** ejecutar el snippet de validación en Chrome DevTools para confirmar los resultados antes de la entrega final.
