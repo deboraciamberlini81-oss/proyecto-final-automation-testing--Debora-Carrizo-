@@ -29,3 +29,16 @@ Los selectores fueron comprobados en Chrome DevTools y cada uno identifica un ú
 - Usuario: `#user-name` → 1 elemento
 - Contraseña: `#password` → 1 elemento
 - Login: `#login-button` → 1 elemento
+
+
+# Documentación de Selectores CSS (Formulario)
+
+Esta guía documenta los selectores CSS adicionales utilizados para identificar los diferentes elementos de la interfaz de usuario.
+
+| Elemento | Atributo usado | Selector CSS |
+| :--- | :--- | :--- |
+| Campo Número 1 | `id` | `#num1` |
+| Campo Email | `name` | `input[name="email"]` |
+| Botón Enviar | `class` | `.btn.enviar` |
+| Checkbox Términos | `id` | `#aceptar-condiciones` |
+| Error debajo de email | `class` | `.error-msg.email` |
