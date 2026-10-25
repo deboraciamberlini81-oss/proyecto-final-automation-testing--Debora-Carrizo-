@@ -1,0 +1,63 @@
+
+from selenium.webdriver.common.by import By
+
+
+class InventoryPage:
+    INVENTORY_TITLE = (
+        By.CSS_SELECTOR,
+        "div.header_secondary_container .title"
+    )
+    INVENTORY_ITEMS = (
+        By.CSS_SELECTOR,
+        "div.inventory_item"
+    )
+    FIRST_PRODUCT_NAME = (
+        By.CSS_SELECTOR,
+        "div.inventory_item .inventory_item_name"
+    )
+    FIRST_PRODUCT_PRICE = (
+        By.CSS_SELECTOR,
+        "div.inventory_item .inventory_item_price"
+    )
+    FIRST_ADD_TO_CART = (
+        By.CSS_SELECTOR,
+        "div.inventory_item button"
+    )
+    CART_BADGE = (By.CSS_SELECTOR, ".shopping_cart_badge")
+    CART_LINK = (By.CSS_SELECTOR, ".shopping_cart_link")
+
+    def __init__(self, driver):
+        self.driver = driver
+
+    def obtener_titulo(self):
+        return self.driver.find_element(
+            *self.INVENTORY_TITLE
+        ).text
+
+    def obtener_productos(self):
+        return self.driver.find_elements(
+            *self.INVENTORY_ITEMS
+        )
+
+    def obtener_nombre_primer_producto(self):
+        return self.driver.find_element(
+            *self.FIRST_PRODUCT_NAME
+        ).text
+
+    def obtener_precio_primer_producto(self):
+        return self.driver.find_element(
+            *self.FIRST_PRODUCT_PRICE
+        ).text
+
+    def agregar_primer_producto_al_carrito(self):
+        self.driver.find_element(
+            *self.FIRST_ADD_TO_CART
+        ).click()
+
+    def obtener_cantidad_carrito(self):
+        return self.driver.find_element(
+            *self.CART_BADGE
+        ).text
+
+    def abrir_carrito(self):
+        self.driver.find_element(*self.CART_LINK).click()

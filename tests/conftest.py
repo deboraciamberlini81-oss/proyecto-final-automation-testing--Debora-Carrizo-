@@ -1,3 +1,4 @@
+
 import os
 import pytest
 from selenium import webdriver
@@ -5,21 +6,24 @@ from selenium import webdriver
 
 @pytest.fixture
 def driver():
-    driver = webdriver.Chrome()
-    yield driver
-    driver.quit()
+    navegador = webdriver.Chrome()
+    navegador.maximize_window()
+
+    yield navegador
+
+    navegador.quit()
 
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     outcome = yield
-    rep = outcome.get_result()
+    reporte = outcome.get_result()
 
-    if rep.when == "call" and rep.failed:
-        driver = item.funcargs.get("driver")
+    if reporte.when == "call" and reporte.failed:
+        navegador = item.funcargs.get("driver")
 
-        if driver:
+        if navegador:
             os.makedirs("reports", exist_ok=True)
-            driver.save_screenshot(
+            navegador.save_screenshot(
                 "reports/fallo_test_saucedemo.png"
             )
