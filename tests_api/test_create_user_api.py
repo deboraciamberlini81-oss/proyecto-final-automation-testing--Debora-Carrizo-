@@ -1,16 +1,24 @@
 
-from faker import Faker
+from datetime import datetime
+
+import pytest
 
 from utils.api_utils import crear_usuario
 
 
-fake = Faker("es_AR")
-
-
-def test_crear_usuario():
+@pytest.mark.api
+@pytest.mark.parametrize(
+    "nombre, trabajo",
+    [
+        ("Debora QA", "QA Tester"),
+        ("Ana Automation", "Automation Tester"),
+        ("Lucia Testing", "QA Analyst"),
+    ],
+)
+def test_crear_usuario(nombre, trabajo):
     payload = {
-        "name": fake.name(),
-        "job": fake.job(),
+        "name": nombre,
+        "job": trabajo,
     }
 
     respuesta = crear_usuario(payload)
@@ -19,7 +27,10 @@ def test_crear_usuario():
 
     datos = respuesta.json()
 
-    assert datos["name"] == payload["name"]
-    assert datos["job"] == payload["job"]
+    assert datos["name"] == nombre
+    assert datos["job"] == trabajo
     assert "id" in datos
     assert "createdAt" in datos
+
+    anio_actual = str(datetime.now().year)
+    assert anio_actual in datos["createdAt"]

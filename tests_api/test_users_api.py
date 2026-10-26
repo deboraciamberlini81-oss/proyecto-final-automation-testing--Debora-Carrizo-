@@ -1,9 +1,19 @@
 
+import pytest
+
 from utils.api_utils import obtener_usuarios
 
-
-def test_obtener_usuarios():
+pytestmark = pytest.mark.api
+@pytest.fixture(scope="module")
+def respuesta_usuarios():
     respuesta = obtener_usuarios(page=1)
+    print("Estado de la API:", respuesta.status_code)
+    print("Respuesta de la API:", respuesta.text[:500])
+    return respuesta
+
+def test_obtener_usuarios(respuesta_usuarios):
+    respuesta = respuesta_usuarios
+
 
     assert respuesta.status_code == 200
 
@@ -24,12 +34,18 @@ def test_obtener_usuarios():
         assert claves_obligatorias.issubset(usuario.keys())
 
 
-def test_avatar_termina_en_jpg():
-    respuesta = obtener_usuarios(page=1)
+def test_avatar_termina_en_jpg(respuesta_usuarios):
+    respuesta = respuesta_usuarios
 
-    assert respuesta.status_code == 200
+    assert respuesta.status_code == 200, (
+        f"Se esperaba 200, pero la API respondió {respuesta.status_code}"
+    )
 
     usuarios = respuesta.json()["data"]
 
+    assert len(usuarios) > 0
+
     for usuario in usuarios:
-        assert usuario["avatar"].lower().endswith(".jpg")
+        assert usuario["avatar"].lower().endswith(".jpg"), (
+            f"El avatar no termina en .jpg: {usuario['avatar']}"
+        )

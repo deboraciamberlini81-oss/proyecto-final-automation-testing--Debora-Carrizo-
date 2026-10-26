@@ -3,6 +3,7 @@ import pytest
 
 from utils.api_utils import iniciar_sesion
 
+pytestmark = pytest.mark.api
 
 @pytest.mark.parametrize(
     "email, password, status_esperado, debe_tener_token",
