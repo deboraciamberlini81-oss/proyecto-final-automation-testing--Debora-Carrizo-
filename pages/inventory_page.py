@@ -54,10 +54,16 @@ class InventoryPage:
             *self.FIRST_ADD_TO_CART
         ).click()
 
+    
     def obtener_cantidad_carrito(self):
-        return self.driver.find_element(
+        insignias = self.driver.find_elements(
             *self.CART_BADGE
-        ).text
+        )
+
+        if insignias:
+            return insignias[0].text
+
+        return "0"
 
     def abrir_carrito(self):
         self.driver.find_element(*self.CART_LINK).click()

@@ -9,6 +9,7 @@ class LoginPage:
     USERNAME = (By.CSS_SELECTOR, "#user-name")
     PASSWORD = (By.CSS_SELECTOR, "#password")
     LOGIN_BUTTON = (By.CSS_SELECTOR, "#login-button")
+    ERROR_MESSAGE = (By.CSS_SELECTOR, "[data-test='error']")
 
     def __init__(self, driver):
         self.driver = driver
@@ -26,7 +27,6 @@ class LoginPage:
         self.ingresar_usuario(usuario)
         self.ingresar_contrasena(contrasena)
         self.driver.find_element(*self.LOGIN_BUTTON).click()
+
     def obtener_error(self):
-        return self.driver.find_element(
-        By.CSS_SELECTOR, "[data-test='error']"
-        ).text
+        return self.driver.find_element(*self.ERROR_MESSAGE).text

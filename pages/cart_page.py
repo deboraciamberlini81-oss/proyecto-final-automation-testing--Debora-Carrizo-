@@ -37,6 +37,9 @@ class CartPage:
         return self.driver.find_element(
             *self.CART_PRODUCT_NAME
         ).text
+        
+    def esta_vacio(self):
+        return len(self.obtener_productos()) == 0 
 
     def obtener_precio_producto(self):
         return self.driver.find_element(
