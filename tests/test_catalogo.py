@@ -20,6 +20,9 @@ def test_catalogo_muestra_productos(driver):
 
     nombre = inventory_page.obtener_nombre_primer_producto()
     precio = inventory_page.obtener_precio_primer_producto()
+    
+    assert nombre.strip() != ""
+    assert precio.strip() != ""
 
     print(f"Primer producto: {nombre}")
     print(f"Precio: {precio}")

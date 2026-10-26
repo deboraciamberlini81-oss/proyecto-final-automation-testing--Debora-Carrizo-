@@ -18,6 +18,7 @@ def test_agregar_producto_al_carrito(driver):
     nombre_producto = (
         inventory_page.obtener_nombre_primer_producto()
     )
+    precio_producto = inventory_page.obtener_precio_primer_producto()
 
     inventory_page.agregar_primer_producto_al_carrito()
 
@@ -34,6 +35,7 @@ def test_agregar_producto_al_carrito(driver):
         cart_page.obtener_nombre_producto()
         == nombre_producto
     )
-
+    assert cart_page.obtener_precio_producto() == precio_producto
+    
     print(f"Producto agregado correctamente: {nombre_producto}")
     print("Carrito OK")

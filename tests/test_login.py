@@ -12,6 +12,7 @@ def test_login_exitoso(driver):
     login_page.hacer_login("standard_user", "secret_sauce")
 
     assert "/inventory.html" in driver.current_url
+    assert driver.title == "Swag Labs"
 
     inventory_page = InventoryPage(driver)
     assert inventory_page.obtener_titulo() == "Products"
