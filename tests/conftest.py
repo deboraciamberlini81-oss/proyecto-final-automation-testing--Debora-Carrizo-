@@ -1,29 +1,100 @@
 
+import logging
 import os
+import re
+from pathlib import Path
+
 import pytest
 from selenium import webdriver
 
 
+ROOT_DIR = Path(__file__).resolve().parent.parent
+REPORTS_DIR = ROOT_DIR / "reports"
+LOGS_DIR = ROOT_DIR / "logs"
+LOG_FILE = LOGS_DIR / "suite.log"
+
+
+def pytest_configure(config):
+    """Prepara carpetas, logging y metadata del reporte."""
+    REPORTS_DIR.mkdir(parents=True, exist_ok=True)
+    LOGS_DIR.mkdir(parents=True, exist_ok=True)
+    
+    
+def pytest_metadata(metadata):
+    """Agrega información del proyecto al reporte HTML."""
+    metadata["Proyecto"] = "QA Automation"
+    metadata["Autor"] = "Debora"
+    metadata["UI"] = "SauceDemo"
+    metadata["API"] = "JSONPlaceholder"
+
+
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s | %(levelname)s | %(message)s",
+        datefmt="%Y-%m-%d %H:%M:%S",
+        handlers=[
+            logging.FileHandler(LOG_FILE, encoding="utf-8"),
+        ],
+        force=True,
+    )
+
+
+
+
+def pytest_html_report_title(report):
+    """Define el título del reporte HTML."""
+    report.title = "QA Automation - Reporte de pruebas"
+
+
 @pytest.fixture
 def driver():
+    """Inicializa y cierra el navegador para las pruebas UI."""
+    logging.info("Iniciando navegador Chrome")
     navegador = webdriver.Chrome()
     navegador.maximize_window()
 
-    yield navegador
-
-    navegador.quit()
+    try:
+        yield navegador
+    finally:
+        logging.info("Cerrando navegador Chrome")
+        navegador.quit()
 
 
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
+    """Registra resultados y adjunta capturas de fallos UI."""
     outcome = yield
     reporte = outcome.get_result()
 
-    if reporte.when == "call" and reporte.failed:
-        navegador = item.funcargs.get("driver")
+    if reporte.when == "call":
+        if reporte.failed:
+            logging.error("FALLO: %s", item.nodeid)
+        else:
+            logging.info("OK: %s", item.nodeid)
 
-        if navegador:
-            os.makedirs("reports", exist_ok=True)
-            navegador.save_screenshot(
-                "reports/fallo_test_saucedemo.png"
-            )
+    if reporte.when != "call" or not reporte.failed:
+        return
+
+    navegador = item.funcargs.get("driver")
+    if navegador is None:
+        return
+
+    nombre_seguro = re.sub(r"[^A-Za-z0-9_.-]", "_", item.nodeid)
+    captura = REPORTS_DIR / f"{nombre_seguro}.png"
+
+    try:
+        if navegador.save_screenshot(str(captura)):
+            logging.info("Captura guardada: %s", captura.name)
+
+            plugin_html = item.config.pluginmanager.getplugin("html")
+            if plugin_html:
+                extras = getattr(reporte, "extras", [])
+                extras.append(
+                    plugin_html.extras.image(
+                        str(captura),
+                        name="Captura del fallo",
+                    )
+                )
+                reporte.extras = extras
+    except Exception:
+        logging.exception("No se pudo guardar la captura de %s", item.nodeid)
