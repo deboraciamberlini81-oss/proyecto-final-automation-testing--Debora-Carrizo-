@@ -39,7 +39,6 @@ jobs:
 
       - name: Ejecutar pruebas y generar reporte
         run: python -m pytest
-        continue-on-error: true
 
       - name: Adjuntar reporte, logs y capturas
         if: always()
