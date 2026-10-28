@@ -21,6 +21,11 @@ jobs:
         with:
           python-version: "3.12"
           cache: "pip"
+          
+      - name: Instalar Chrome
+        uses: browser-actions/setup-chrome@v1
+        with:
+          chrome-version: stable
 
       - name: Instalar dependencias
         run: |
