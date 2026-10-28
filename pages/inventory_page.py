@@ -68,5 +68,8 @@ class InventoryPage:
         return "0"
 
     def abrir_carrito(self):
-        self.driver.find_element(*self.CART_LINK).click()
+        enlace = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.CART_LINK)
+    )
+    enlace.click()
 
