@@ -3,6 +3,9 @@ import pytest
 from pages.login_page import LoginPage
 from pages.inventory_page import InventoryPage
 from pages.cart_page import CartPage
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 @pytest.mark.smoke
@@ -24,11 +27,19 @@ def test_agregar_producto_al_carrito(driver):
 
     assert inventory_page.obtener_cantidad_carrito() == "1"
 
+    
     inventory_page.abrir_carrito()
+
+    WebDriverWait(driver, 10).until(
+        EC.visibility_of_element_located(
+            (By.CSS_SELECTOR, ".cart_item")
+        )
+    )
 
     cart_page = CartPage(driver)
 
     productos_carrito = cart_page.obtener_productos()
+
     assert len(productos_carrito) == 1
 
     assert (

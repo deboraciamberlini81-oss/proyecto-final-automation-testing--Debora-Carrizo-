@@ -51,7 +51,6 @@ class InventoryPage:
             *self.FIRST_PRODUCT_PRICE
         ).text
 
-    
     def agregar_primer_producto_al_carrito(self):
         boton = WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable(self.FIRST_ADD_TO_CART)
