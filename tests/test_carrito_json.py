@@ -11,11 +11,6 @@ from utils.datos import leer_json
 PRODUCTOS = leer_json("productos.json")
 
 
-@pytest.fixture
-def driver():
-    navegador = webdriver.Chrome()
-    yield navegador
-    navegador.quit()
 
 
 @pytest.fixture
@@ -168,6 +163,8 @@ def test_carrito_smoke(usuario_logueado):
     driver.find_element(
         By.CLASS_NAME, "shopping_cart_link"
     ).click()
+    
+    wait.until(EC.url_contains("/cart.html"))
 
     producto_carrito = wait.until(
         EC.visibility_of_element_located(
