@@ -50,8 +50,14 @@ def pytest_html_report_title(report):
 def driver():
     """Inicializa y cierra el navegador para las pruebas UI."""
     logging.info("Iniciando navegador Chrome")
-    navegador = webdriver.Chrome()
-    navegador.maximize_window()
+
+    opciones = webdriver.ChromeOptions()
+    opciones.add_argument("--headless=new")
+    opciones.add_argument("--no-sandbox")
+    opciones.add_argument("--disable-dev-shm-usage")
+    opciones.add_argument("--window-size=1920,1080")
+
+    navegador = webdriver.Chrome(options=opciones)
 
     try:
         yield navegador

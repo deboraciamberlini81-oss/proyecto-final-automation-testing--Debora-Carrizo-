@@ -1,6 +1,7 @@
 
 from selenium.webdriver.common.by import By
-
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 class InventoryPage:
     INVENTORY_TITLE = (
@@ -30,9 +31,10 @@ class InventoryPage:
         self.driver = driver
 
     def obtener_titulo(self):
-        return self.driver.find_element(
-            *self.INVENTORY_TITLE
-        ).text
+        elemento = WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.INVENTORY_TITLE)
+    )
+        return elemento.text
 
     def obtener_productos(self):
         return self.driver.find_elements(
