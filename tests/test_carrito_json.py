@@ -148,17 +148,34 @@ def test_carrito_smoke(usuario_logueado):
         By.CSS_SELECTOR, ".inventory_item_name"
     ).text
 
-    primer_producto.find_element(
+    boton = primer_producto.find_element(
         By.CSS_SELECTOR, "button"
-    ).click()
-
-    contador = wait.until(
-        EC.visibility_of_element_located(
-            (By.CLASS_NAME, "shopping_cart_badge")
-        )
     )
 
-    assert contador.text == "1"
+    print(f"Botón antes del clic: {boton.text}")
+    boton.click()
+
+    boton_actualizado = wait.until(
+        lambda d: d.find_element(
+            By.CSS_SELECTOR, ".inventory_item button"
+        ).text == "Remove"
+    )
+
+    print("El botón cambió a Remove")
+    print(f"URL actual: {driver.current_url}")
+
+    insignias = driver.find_elements(
+        By.CLASS_NAME, "shopping_cart_badge"
+    )
+
+    print(f"Cantidad de contadores encontrados: {len(insignias)}")
+
+    if insignias:
+        print(f"Texto del contador: {insignias[0].text}")
+
+    assert insignias and insignias[0].text == "1", (
+        "El producto no actualizó el contador del carrito"
+    )
 
     driver.find_element(
         By.CLASS_NAME, "shopping_cart_link"
