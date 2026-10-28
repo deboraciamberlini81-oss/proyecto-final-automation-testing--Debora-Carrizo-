@@ -53,6 +53,8 @@ def driver():
 
     opciones = webdriver.ChromeOptions()
     opciones.add_argument("--headless=new")
+    opciones.add_argument("--disable-gpu")
+    opciones.add_argument("--disable-extensions")
     opciones.add_argument("--no-sandbox")
     opciones.add_argument("--disable-dev-shm-usage")
     opciones.add_argument("--window-size=1920,1080")
