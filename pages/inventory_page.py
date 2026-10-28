@@ -51,12 +51,13 @@ class InventoryPage:
             *self.FIRST_PRODUCT_PRICE
         ).text
 
-    def agregar_primer_producto_al_carrito(self):
-        self.driver.find_element(
-            *self.FIRST_ADD_TO_CART
-        ).click()
-
     
+    def agregar_primer_producto_al_carrito(self):
+        boton = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.FIRST_ADD_TO_CART)
+        )
+        boton.click()
+
     def obtener_cantidad_carrito(self):
         insignias = self.driver.find_elements(
             *self.CART_BADGE
@@ -69,3 +70,4 @@ class InventoryPage:
 
     def abrir_carrito(self):
         self.driver.find_element(*self.CART_LINK).click()
+
