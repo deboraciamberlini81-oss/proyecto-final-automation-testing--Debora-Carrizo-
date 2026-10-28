@@ -27,6 +27,11 @@ jobs:
         with:
           chrome-version: stable
 
+      - name: Verificar Chrome
+        run: |
+          google-chrome --version
+          python --version
+
       - name: Instalar dependencias
         run: |
           python -m pip install --upgrade pip
