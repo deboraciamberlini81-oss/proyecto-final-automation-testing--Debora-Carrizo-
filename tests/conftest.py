@@ -6,7 +6,12 @@ from pathlib import Path
 
 import pytest
 from selenium import webdriver
+from html import escape
 
+
+# ==========================================
+# RUTAS DEL PROYECTO
+# ==========================================
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 REPORTS_DIR = ROOT_DIR / "reports"
@@ -14,19 +19,28 @@ LOGS_DIR = ROOT_DIR / "logs"
 LOG_FILE = LOGS_DIR / "suite.log"
 
 
+# ==========================================
+# TABLA DE RESULTADOS HTML
+# ==========================================
+
+def pytest_html_results_table_header(cells):
+    """Agrega la columna URL al reporte HTML."""
+    cells.insert(2, "<th>URL</th>")
+
+
+def pytest_html_results_table_row(report, cells):
+    """Muestra la URL correspondiente a cada prueba."""
+    url = escape(str(getattr(report, "page_url", "-")))
+    cells.insert(2, f"<td>{url}</td>")
+
+# ==========================================
+# CONFIGURACIÓN Y LOGGING
+# ==========================================
+
 def pytest_configure(config):
     """Prepara carpetas, logging y metadata del reporte."""
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
     LOGS_DIR.mkdir(parents=True, exist_ok=True)
-    
-    
-def pytest_metadata(metadata):
-    """Agrega información del proyecto al reporte HTML."""
-    metadata["Proyecto"] = "QA Automation"
-    metadata["Autor"] = "Debora"
-    metadata["UI"] = "SauceDemo"
-    metadata["API"] = "JSONPlaceholder"
-
 
     logging.basicConfig(
         level=logging.INFO,
@@ -39,12 +53,22 @@ def pytest_metadata(metadata):
     )
 
 
+def pytest_metadata(metadata):
+    """Agrega información del proyecto al reporte HTML."""
+    metadata["Proyecto"] = "QA Automation"
+    metadata["Autor"] = "Debora"
+    metadata["UI"] = "SauceDemo"
+    metadata["API"] = "JSONPlaceholder"
 
 
 def pytest_html_report_title(report):
     """Define el título del reporte HTML."""
     report.title = "QA Automation - Reporte de pruebas"
 
+
+# ==========================================
+# FIXTURE SELENIUM
+# ==========================================
 
 @pytest.fixture
 def driver():
@@ -68,18 +92,31 @@ def driver():
         navegador.quit()
 
 
+# ==========================================
+# REPORTE DE EJECUCIÓN Y CAPTURAS
+# ==========================================
+
 @pytest.hookimpl(hookwrapper=True)
 def pytest_runtest_makereport(item, call):
-    """Registra resultados y adjunta capturas de fallos UI."""
+    """Registra resultados, URL y capturas de fallos UI."""
     outcome = yield
     reporte = outcome.get_result()
 
+    # Guardar URL de la prueba
+    if reporte.when == "call":
+        navegador = item.funcargs.get("driver")
+        reporte.page_url = (
+            navegador.current_url if navegador else "-"
+        )
+
+    # Registrar resultados en el log
     if reporte.when == "call":
         if reporte.failed:
             logging.error("FALLO: %s", item.nodeid)
         else:
             logging.info("OK: %s", item.nodeid)
 
+    # Capturas solamente para fallos durante la ejecución
     if reporte.when != "call" or not reporte.failed:
         return
 
@@ -104,5 +141,9 @@ def pytest_runtest_makereport(item, call):
                     )
                 )
                 reporte.extras = extras
+
     except Exception:
-        logging.exception("No se pudo guardar la captura de %s", item.nodeid)
+        logging.exception(
+            "No se pudo guardar la captura de %s",
+            item.nodeid
+        )
