@@ -25,8 +25,8 @@ class InventoryPage:
         "div.inventory_item button"
     )
     CART_BADGE = (By.CSS_SELECTOR, ".shopping_cart_badge")
-    CART_LINK = (By.CSS_SELECTOR, ".shopping_cart_link")
-
+    CART_LINK = (By.CSS_SELECTOR, '[data-test="shopping-cart-link"]')
+    
     def __init__(self, driver):
         self.driver = driver
 
@@ -72,6 +72,8 @@ class InventoryPage:
         enlace = WebDriverWait(self.driver, 15).until(
             EC.element_to_be_clickable(self.CART_LINK)
         )
+        
+        print("HTML DEL CARRITO:", enlace.get_attribute("outerHTML"))
 
         print("URL antes del clic:", self.driver.current_url)
         print("Destino del carrito:", enlace.get_attribute("href"))
