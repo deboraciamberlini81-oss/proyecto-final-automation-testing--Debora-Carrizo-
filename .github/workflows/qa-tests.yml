@@ -47,7 +47,7 @@ jobs:
           name: qa-reportes-y-evidencias
           path: |
             reports/report.html
-            reports/*.png
+            reports/screens/*.png
             logs/suite.log
           if-no-files-found: warn
           retention-days: 14

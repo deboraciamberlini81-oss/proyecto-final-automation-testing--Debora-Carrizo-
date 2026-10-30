@@ -2,6 +2,7 @@
 import logging
 import os
 import re
+import base64
 from pathlib import Path
 
 import pytest
@@ -15,6 +16,7 @@ from html import escape
 
 ROOT_DIR = Path(__file__).resolve().parent.parent
 REPORTS_DIR = ROOT_DIR / "reports"
+SCREENS_DIR = REPORTS_DIR / "screens"
 LOGS_DIR = ROOT_DIR / "logs"
 LOG_FILE = LOGS_DIR / "suite.log"
 
@@ -41,6 +43,7 @@ def pytest_configure(config):
     """Prepara carpetas, logging y metadata del reporte."""
     REPORTS_DIR.mkdir(parents=True, exist_ok=True)
     LOGS_DIR.mkdir(parents=True, exist_ok=True)
+    SCREENS_DIR.mkdir(parents=True, exist_ok=True)
 
     logging.basicConfig(
         level=logging.INFO,
@@ -96,7 +99,7 @@ def driver():
 # REPORTE DE EJECUCIÓN Y CAPTURAS
 # ==========================================
 
-@pytest.hookimpl(hookwrapper=True)
+@pytest.hookimpl(tryfirst=True, hookwrapper=True)
 def pytest_runtest_makereport(item, call):
     """Registra resultados, URL y capturas de fallos UI."""
     outcome = yield
@@ -125,22 +128,28 @@ def pytest_runtest_makereport(item, call):
         return
 
     nombre_seguro = re.sub(r"[^A-Za-z0-9_.-]", "_", item.nodeid)
-    captura = REPORTS_DIR / f"{nombre_seguro}.png"
-
+    captura = SCREENS_DIR / f"{nombre_seguro}.png"
     try:
         if navegador.save_screenshot(str(captura)):
             logging.info("Captura guardada: %s", captura.name)
 
-            plugin_html = item.config.pluginmanager.getplugin("html")
-            if plugin_html:
-                extras = getattr(reporte, "extras", [])
-                extras.append(
-                    plugin_html.extras.image(
-                        str(captura),
-                        name="Captura del fallo",
-                    )
-                )
-                reporte.extras = extras
+        plugin_html = item.config.pluginmanager.getplugin("html")
+        if plugin_html:
+            extras = getattr(reporte, "extras", [])
+
+            imagen_base64 = base64.b64encode(
+                captura.read_bytes()
+    ).decode("utf-8")
+
+            extras.append(
+                plugin_html.extras.image(
+                    imagen_base64,
+            mime_type="image/png",
+            name="Captura del fallo",
+        )
+    )
+
+            reporte.extras = extras
 
     except Exception:
         logging.exception(
