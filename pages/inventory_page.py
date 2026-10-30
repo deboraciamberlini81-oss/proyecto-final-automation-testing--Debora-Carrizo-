@@ -73,7 +73,12 @@ class InventoryPage:
             EC.element_to_be_clickable(self.CART_LINK)
         )
 
+        print("URL antes del clic:", self.driver.current_url)
+        print("Destino del carrito:", enlace.get_attribute("href"))
+
         enlace.click()
+
+        print("URL después del clic:", self.driver.current_url)
 
         WebDriverWait(self.driver, 15).until(
             EC.url_contains("/cart.html")
