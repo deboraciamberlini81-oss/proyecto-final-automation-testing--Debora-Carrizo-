@@ -4,16 +4,19 @@ import pytest
 from utils.api_utils import obtener_usuarios
 
 pytestmark = pytest.mark.api
-@pytest.fixture(scope="module")
+
+
+@pytest.fixture(scope="function")
 def respuesta_usuarios():
     respuesta = obtener_usuarios(page=1)
     print("Estado de la API:", respuesta.status_code)
     print("Respuesta de la API:", respuesta.text[:500])
     return respuesta
 
+
+@pytest.mark.flaky(reruns=2, reruns_delay=2)
 def test_obtener_usuarios(respuesta_usuarios):
     respuesta = respuesta_usuarios
-
 
     assert respuesta.status_code == 200
 
@@ -34,6 +37,7 @@ def test_obtener_usuarios(respuesta_usuarios):
         assert claves_obligatorias.issubset(usuario.keys())
 
 
+@pytest.mark.flaky(reruns=2, reruns_delay=2)
 def test_avatar_termina_en_jpg(respuesta_usuarios):
     respuesta = respuesta_usuarios
 
