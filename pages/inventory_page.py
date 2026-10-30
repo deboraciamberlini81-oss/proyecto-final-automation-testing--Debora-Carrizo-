@@ -3,37 +3,48 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 class InventoryPage:
+
     INVENTORY_TITLE = (
         By.CSS_SELECTOR,
         "div.header_secondary_container .title"
     )
+
     INVENTORY_ITEMS = (
         By.CSS_SELECTOR,
         "div.inventory_item"
     )
+
     FIRST_PRODUCT_NAME = (
         By.CSS_SELECTOR,
         "div.inventory_item .inventory_item_name"
     )
+
     FIRST_PRODUCT_PRICE = (
         By.CSS_SELECTOR,
         "div.inventory_item .inventory_item_price"
     )
+
     FIRST_ADD_TO_CART = (
         By.CSS_SELECTOR,
         "div.inventory_item button"
     )
+
     CART_BADGE = (By.CSS_SELECTOR, ".shopping_cart_badge")
-    CART_LINK = (By.CSS_SELECTOR, '[data-test="shopping-cart-link"]')
-    
+
+    CART_LINK = (
+        By.CSS_SELECTOR,
+        '[data-test="shopping-cart-link"]'
+    )
+
     def __init__(self, driver):
         self.driver = driver
 
     def obtener_titulo(self):
         elemento = WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(self.INVENTORY_TITLE)
-    )
+        )
         return elemento.text
 
     def obtener_productos(self):
@@ -55,7 +66,12 @@ class InventoryPage:
         boton = WebDriverWait(self.driver, 10).until(
             EC.element_to_be_clickable(self.FIRST_ADD_TO_CART)
         )
+
         boton.click()
+
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.CART_BADGE)
+        )
 
     def obtener_cantidad_carrito(self):
         insignias = self.driver.find_elements(
@@ -67,19 +83,21 @@ class InventoryPage:
 
         return "0"
 
-    
     def abrir_carrito(self):
         enlace = WebDriverWait(self.driver, 15).until(
-        EC.element_to_be_clickable(self.CART_LINK)
-    )
+            EC.element_to_be_clickable(self.CART_LINK)
+        )
 
         print("HTML DEL CARRITO:", enlace.get_attribute("outerHTML"))
         print("URL antes del clic:", self.driver.current_url)
 
-        self.driver.execute_script("arguments[0].click();", enlace)
+        self.driver.execute_script(
+            "arguments[0].click();",
+            enlace
+        )
 
         WebDriverWait(self.driver, 15).until(
-        EC.url_contains("cart.html")
-    )
+            EC.url_contains("cart.html")
+        )
 
         print("URL después del clic:", self.driver.current_url)
