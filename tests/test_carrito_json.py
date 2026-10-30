@@ -6,6 +6,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
 from utils.datos import leer_json
+from pages.inventory_page import InventoryPage
 
 
 PRODUCTOS = leer_json("productos.json")
@@ -94,9 +95,8 @@ def test_agregar_producto_desde_json(usuario_logueado, producto):
         ).text == "Remove"
     )
 
-    driver.find_element(
-        By.CLASS_NAME, "shopping_cart_link"
-    ).click()
+    inventory_page = InventoryPage(driver)
+    inventory_page.abrir_carrito()
 
     productos_carrito = wait.until(
         EC.presence_of_all_elements_located(
@@ -177,9 +177,8 @@ def test_carrito_smoke(usuario_logueado):
         "El producto no actualizó el contador del carrito"
     )
 
-    driver.find_element(
-        By.CLASS_NAME, "shopping_cart_link"
-    ).click()
+    inventory_page = InventoryPage(driver)
+    inventory_page.abrir_carrito()
     
     wait.until(EC.url_contains("/cart.html"))
 

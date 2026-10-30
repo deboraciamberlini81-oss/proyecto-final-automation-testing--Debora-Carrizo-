@@ -477,3 +477,100 @@
 2026-10-29 20:13:59 | INFO | Iniciando navegador Chrome
 2026-10-29 20:14:01 | INFO | OK: tests/test_login_csv.py::test_login_usuario_valido_smoke
 2026-10-29 20:14:01 | INFO | Cerrando navegador Chrome
+2026-10-29 21:02:16 | INFO | Iniciando navegador Chrome
+2026-10-29 21:02:18 | INFO | OK: tests/test_carrito_json.py::test_agregar_producto_desde_json[Sauce Labs Backpack]
+2026-10-29 21:02:18 | INFO | Cerrando navegador Chrome
+2026-10-29 21:02:20 | INFO | Iniciando navegador Chrome
+2026-10-29 21:02:22 | INFO | OK: tests/test_carrito_json.py::test_agregar_producto_desde_json[Sauce Labs Bike Light]
+2026-10-29 21:02:22 | INFO | Cerrando navegador Chrome
+2026-10-29 21:02:24 | INFO | Iniciando navegador Chrome
+2026-10-29 21:02:27 | INFO | OK: tests/test_carrito_json.py::test_agregar_producto_desde_json[Sauce Labs Bolt T-Shirt]
+2026-10-29 21:02:27 | INFO | Cerrando navegador Chrome
+2026-10-29 21:02:29 | INFO | Iniciando navegador Chrome
+2026-10-29 21:02:31 | ERROR | FALLO: tests/test_carrito_json.py::test_carrito_smoke
+2026-10-29 21:02:31 | INFO | Captura guardada: tests_test_carrito_json.py__test_carrito_smoke.png
+2026-10-29 21:02:31 | INFO | Cerrando navegador Chrome
+2026-10-29 21:04:28 | INFO | Iniciando navegador Chrome
+2026-10-29 21:04:30 | INFO | OK: tests/test_carrito_json.py::test_agregar_producto_desde_json[Sauce Labs Backpack]
+2026-10-29 21:04:30 | INFO | Cerrando navegador Chrome
+2026-10-29 21:04:32 | INFO | Iniciando navegador Chrome
+2026-10-29 21:04:35 | INFO | OK: tests/test_carrito_json.py::test_agregar_producto_desde_json[Sauce Labs Bike Light]
+2026-10-29 21:04:35 | INFO | Cerrando navegador Chrome
+2026-10-29 21:04:37 | INFO | Iniciando navegador Chrome
+2026-10-29 21:04:39 | INFO | OK: tests/test_carrito_json.py::test_agregar_producto_desde_json[Sauce Labs Bolt T-Shirt]
+2026-10-29 21:04:39 | INFO | Cerrando navegador Chrome
+2026-10-29 21:04:41 | INFO | Iniciando navegador Chrome
+2026-10-29 21:04:43 | INFO | OK: tests/test_carrito_json.py::test_carrito_smoke
+2026-10-29 21:04:43 | INFO | Cerrando navegador Chrome
+2026-10-29 21:05:06 | INFO | Iniciando navegador Chrome
+2026-10-29 21:05:07 | INFO | OK: tests/test_carrito.py::test_agregar_producto_al_carrito
+2026-10-29 21:05:07 | INFO | Cerrando navegador Chrome
+2026-10-29 21:05:10 | INFO | Iniciando navegador Chrome
+2026-10-29 21:05:12 | INFO | OK: tests/test_carrito_json.py::test_agregar_producto_desde_json[Sauce Labs Backpack]
+2026-10-29 21:05:12 | INFO | Cerrando navegador Chrome
+2026-10-29 21:05:14 | INFO | Iniciando navegador Chrome
+2026-10-29 21:05:16 | INFO | OK: tests/test_carrito_json.py::test_agregar_producto_desde_json[Sauce Labs Bike Light]
+2026-10-29 21:05:16 | INFO | Cerrando navegador Chrome
+2026-10-29 21:05:18 | INFO | Iniciando navegador Chrome
+2026-10-29 21:05:21 | INFO | OK: tests/test_carrito_json.py::test_agregar_producto_desde_json[Sauce Labs Bolt T-Shirt]
+2026-10-29 21:05:21 | INFO | Cerrando navegador Chrome
+2026-10-29 21:05:23 | INFO | Iniciando navegador Chrome
+2026-10-29 21:05:24 | INFO | OK: tests/test_carrito_json.py::test_carrito_smoke
+2026-10-29 21:05:24 | INFO | Cerrando navegador Chrome
+2026-10-29 21:05:27 | INFO | Iniciando navegador Chrome
+2026-10-29 21:05:28 | INFO | OK: tests/test_catalogo.py::test_catalogo_muestra_productos
+2026-10-29 21:05:28 | INFO | Cerrando navegador Chrome
+2026-10-29 21:05:30 | INFO | Iniciando navegador Chrome
+2026-10-29 21:05:32 | INFO | OK: tests/test_login.py::test_login_exitoso
+2026-10-29 21:05:32 | INFO | Cerrando navegador Chrome
+2026-10-29 21:05:35 | INFO | Iniciando navegador Chrome
+2026-10-29 21:05:36 | INFO | OK: tests/test_login_csv.py::test_login_desde_csv[Login exitoso para standard_user]
+2026-10-29 21:05:36 | INFO | Cerrando navegador Chrome
+2026-10-29 21:05:39 | INFO | Iniciando navegador Chrome
+2026-10-29 21:05:40 | INFO | OK: tests/test_login_csv.py::test_login_desde_csv[Login bloqueado para locked_out_user]
+2026-10-29 21:05:40 | INFO | Cerrando navegador Chrome
+2026-10-29 21:05:42 | INFO | Iniciando navegador Chrome
+2026-10-29 21:05:43 | INFO | OK: tests/test_login_csv.py::test_login_usuario_valido_smoke
+2026-10-29 21:05:43 | INFO | Cerrando navegador Chrome
+2026-10-29 21:10:00 | INFO | Iniciando navegador Chrome
+2026-10-29 21:10:01 | INFO | OK: tests/test_carrito_json.py::test_agregar_producto_desde_json[Sauce Labs Backpack]
+2026-10-29 21:10:01 | INFO | Cerrando navegador Chrome
+2026-10-29 21:10:03 | INFO | Iniciando navegador Chrome
+2026-10-29 21:10:06 | INFO | OK: tests/test_carrito_json.py::test_agregar_producto_desde_json[Sauce Labs Bike Light]
+2026-10-29 21:10:06 | INFO | Cerrando navegador Chrome
+2026-10-29 21:10:08 | INFO | Iniciando navegador Chrome
+2026-10-29 21:10:10 | INFO | OK: tests/test_carrito_json.py::test_agregar_producto_desde_json[Sauce Labs Bolt T-Shirt]
+2026-10-29 21:10:10 | INFO | Cerrando navegador Chrome
+2026-10-29 21:10:12 | INFO | Iniciando navegador Chrome
+2026-10-29 21:10:14 | INFO | OK: tests/test_carrito_json.py::test_carrito_smoke
+2026-10-29 21:10:14 | INFO | Cerrando navegador Chrome
+2026-10-29 21:10:37 | INFO | Iniciando navegador Chrome
+2026-10-29 21:10:39 | INFO | OK: tests/test_carrito.py::test_agregar_producto_al_carrito
+2026-10-29 21:10:39 | INFO | Cerrando navegador Chrome
+2026-10-29 21:10:41 | INFO | Iniciando navegador Chrome
+2026-10-29 21:10:43 | INFO | OK: tests/test_carrito_json.py::test_agregar_producto_desde_json[Sauce Labs Backpack]
+2026-10-29 21:10:43 | INFO | Cerrando navegador Chrome
+2026-10-29 21:10:45 | INFO | Iniciando navegador Chrome
+2026-10-29 21:10:47 | INFO | OK: tests/test_carrito_json.py::test_agregar_producto_desde_json[Sauce Labs Bike Light]
+2026-10-29 21:10:47 | INFO | Cerrando navegador Chrome
+2026-10-29 21:10:49 | INFO | Iniciando navegador Chrome
+2026-10-29 21:10:50 | INFO | OK: tests/test_carrito_json.py::test_agregar_producto_desde_json[Sauce Labs Bolt T-Shirt]
+2026-10-29 21:10:50 | INFO | Cerrando navegador Chrome
+2026-10-29 21:10:52 | INFO | Iniciando navegador Chrome
+2026-10-29 21:10:55 | INFO | OK: tests/test_carrito_json.py::test_carrito_smoke
+2026-10-29 21:10:55 | INFO | Cerrando navegador Chrome
+2026-10-29 21:10:57 | INFO | Iniciando navegador Chrome
+2026-10-29 21:10:59 | INFO | OK: tests/test_catalogo.py::test_catalogo_muestra_productos
+2026-10-29 21:10:59 | INFO | Cerrando navegador Chrome
+2026-10-29 21:11:01 | INFO | Iniciando navegador Chrome
+2026-10-29 21:11:03 | INFO | OK: tests/test_login.py::test_login_exitoso
+2026-10-29 21:11:03 | INFO | Cerrando navegador Chrome
+2026-10-29 21:11:05 | INFO | Iniciando navegador Chrome
+2026-10-29 21:11:06 | INFO | OK: tests/test_login_csv.py::test_login_desde_csv[Login exitoso para standard_user]
+2026-10-29 21:11:06 | INFO | Cerrando navegador Chrome
+2026-10-29 21:11:09 | INFO | Iniciando navegador Chrome
+2026-10-29 21:11:10 | INFO | OK: tests/test_login_csv.py::test_login_desde_csv[Login bloqueado para locked_out_user]
+2026-10-29 21:11:10 | INFO | Cerrando navegador Chrome
+2026-10-29 21:11:12 | INFO | Iniciando navegador Chrome
+2026-10-29 21:11:14 | INFO | OK: tests/test_login_csv.py::test_login_usuario_valido_smoke
+2026-10-29 21:11:14 | INFO | Cerrando navegador Chrome
