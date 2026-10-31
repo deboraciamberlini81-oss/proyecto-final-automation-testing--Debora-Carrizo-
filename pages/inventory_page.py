@@ -72,6 +72,41 @@ class InventoryPage:
         WebDriverWait(self.driver, 10).until(
             EC.visibility_of_element_located(self.CART_BADGE)
         )
+    def agregar_primer_producto_al_carrito(self):
+        boton = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable(self.FIRST_ADD_TO_CART)
+        )
+
+        boton.click()
+
+        WebDriverWait(self.driver, 10).until(
+            EC.visibility_of_element_located(self.CART_BADGE)
+        )
+
+    def agregar_producto_por_nombre(self, nombre):
+        productos = self.obtener_productos()
+
+        for producto in productos:
+            nombre_producto = producto.find_element(
+                By.CSS_SELECTOR,
+                ".inventory_item_name"
+            ).text
+
+            if nombre_producto == nombre:
+                boton = producto.find_element(
+                    By.CSS_SELECTOR,
+                    "button"
+                )
+                boton.click()
+
+                WebDriverWait(self.driver, 10).until(
+                    EC.visibility_of_element_located(self.CART_BADGE)
+                )
+                return
+
+        raise AssertionError(
+            f"No se encontró el producto: {nombre}"
+        )
 
     def obtener_cantidad_carrito(self):
         insignias = self.driver.find_elements(
