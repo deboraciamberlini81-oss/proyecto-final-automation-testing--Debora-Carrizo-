@@ -89,12 +89,16 @@ def test_agregar_producto_desde_json(usuario_logueado, producto):
         By.CSS_SELECTOR, "button"
     ).click()
 
-    # Esperar a que el botón confirme que el producto fue agregado.
-    wait.until(
-    lambda d: producto_encontrado.find_element(
-        By.CSS_SELECTOR, "button"
-    ).text.strip() == "Remove"
-)
+    #  Esperar a que el contador confirme que el producto fue agregado.
+    badge = wait.until(
+        EC.visibility_of_element_located(
+            (By.CSS_SELECTOR, ".shopping_cart_badge")
+        )
+    )
+
+    assert badge.text == "1", (
+        f"Se esperaba 1 producto en el carrito, pero hay {badge.text}"
+    )
 
 # Esperar a que aparezca el contador del carrito.
     wait.until(
