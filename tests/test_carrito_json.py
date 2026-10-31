@@ -89,12 +89,27 @@ def test_agregar_producto_desde_json(usuario_logueado, producto):
         By.CSS_SELECTOR, "button"
     ).click()
 
+    # Esperar a que el botón confirme que el producto fue agregado.
+    wait.until(
+    lambda d: producto_encontrado.find_element(
+        By.CSS_SELECTOR, "button"
+    ).text.strip() == "Remove"
+)
+
+# Esperar a que aparezca el contador del carrito.
+    wait.until(
+        EC.visibility_of_element_located(
+            (By.CSS_SELECTOR, ".shopping_cart_badge")
+    )
+)
+
+# Verificar que el contador indique una unidad.
     wait.until(
         EC.text_to_be_present_in_element(
             (By.CSS_SELECTOR, ".shopping_cart_badge"),
-            "1"
-        )
+        "1"
     )
+)
 
     inventory_page = InventoryPage(driver)
     inventory_page.abrir_carrito()
