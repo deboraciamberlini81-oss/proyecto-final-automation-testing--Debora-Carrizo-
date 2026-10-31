@@ -1,0 +1,15 @@
+@ui
+Característica: Autenticación de usuarios en SauceDemo # features_behave/login.feature:4
+  Como usuario de SauceDemo
+  Quiero iniciar sesión en la aplicación
+  Para acceder al catálogo de productos
+  @ui
+  Característica: Autenticación de usuarios en SauceDemo  # features_behave/login.feature:4
+
+  @smoke
+  Escenario: Inicio de sesión exitoso                                        # features_behave/login.feature:14
+    Dado que estoy en la página de login                                     # features_behave/steps/login_steps.py:13
+    Cuando ingreso el usuario "standard_user" y la contraseña "secret_sauce" # features_behave/steps/login_steps.py:21
+    Y presiono el botón de login                                             # features_behave/steps/login_steps.py:29
+    Entonces debo acceder al inventario de productos                         # features_behave/steps/login_steps.py:38
+
