@@ -26,3 +26,4 @@ Característica: Autenticación de usuarios en SauceDemo
       | usuario          | password     | mensaje                                                    |
       | usuario_invalido | secret_sauce | Epic sadface: Username and password do not match any user in this service |
       | locked_out_user  | secret_sauce | Epic sadface: Sorry, this user has been locked out.        |
+      | standard_user    | clave_incorrecta   | Epic sadface: Username and password do not match any user in this service |
