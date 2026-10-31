@@ -90,9 +90,10 @@ def test_agregar_producto_desde_json(usuario_logueado, producto):
     ).click()
 
     wait.until(
-        lambda d: producto_encontrado.find_element(
-            By.CSS_SELECTOR, "button"
-        ).text == "Remove"
+        EC.text_to_be_present_in_element(
+            (By.CSS_SELECTOR, ".shopping_cart_badge"),
+            "1"
+        )
     )
 
     inventory_page = InventoryPage(driver)
