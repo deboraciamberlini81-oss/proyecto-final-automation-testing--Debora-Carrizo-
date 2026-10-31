@@ -156,3 +156,48 @@ def pytest_runtest_makereport(item, call):
             "No se pudo guardar la captura de %s",
             item.nodeid
         )
+
+# ==========================================
+# CAPTURAS AUTOMÁTICAS DE ERRORES BDD
+# ==========================================
+
+def pytest_bdd_step_error(
+    request,
+    feature,
+    scenario,
+    step,
+    step_func,
+    step_func_args,
+    exception
+):
+    """Captura una screenshot cuando falla un paso BDD."""
+
+    # Evita crear un navegador nuevo durante un fallo.
+    if "driver" not in request.fixturenames:
+        logging.warning(
+            "No hay WebDriver disponible para capturar el fallo BDD"
+        )
+        return
+
+    try:
+        navegador = request.getfixturevalue("driver")
+
+        nombre_seguro = re.sub(
+            r"[^A-Za-z0-9_.-]",
+            "_",
+            f"{feature.name}_{scenario.name}_{step.name}"
+        )
+
+        captura = SCREENS_DIR / f"BDD_ERROR_{nombre_seguro}.png"
+
+        if navegador.save_screenshot(str(captura)):
+            logging.error(
+                "Screenshot de paso BDD fallido: %s",
+                captura.name
+            )
+
+    except Exception:
+        logging.exception(
+            "No se pudo capturar el fallo BDD: %s",
+            step.name
+        )
