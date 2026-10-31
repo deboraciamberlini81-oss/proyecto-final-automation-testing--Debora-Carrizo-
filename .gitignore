@@ -1,5 +1,31 @@
+﻿# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
+
+# Pytest
 .pytest_cache/
-Tests Pytest Calculadora.html
-Tests Pytest Calculadora_files/
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# Variables de entorno
+.env
+
+# Logs generados
+logs/*.log
+
+# Reportes y capturas generados
+reports/*.html
+reports/screens/
+reports/*.png
+
+# Configuracion local
+.vscode/
+
+# Archivos temporales
+*.tmp
+.DS_Store
+Thumbs.db
