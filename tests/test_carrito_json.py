@@ -64,10 +64,11 @@ def buscar_producto(driver, nombre_producto):
     PRODUCTOS,
     ids=[p["producto"] for p in PRODUCTOS]
 )
+
 def test_agregar_producto_desde_json(usuario_logueado, producto):
-    """Agrega cada producto del JSON y verifica el carrito."""
+    """Agrega un producto del JSON y verifica el carrito."""
     driver = usuario_logueado
-    wait = WebDriverWait(driver, 10)
+    wait = WebDriverWait(driver, 15)
 
     producto_encontrado = buscar_producto(
         driver, producto["producto"]
@@ -85,9 +86,29 @@ def test_agregar_producto_desde_json(usuario_logueado, producto):
 
     assert precio_real == pytest.approx(producto["precio"])
 
-    producto_encontrado.find_element(
+    boton = producto_encontrado.find_element(
         By.CSS_SELECTOR, "button"
-    ).click()
+    )
+    boton.click()
+
+    cantidad_esperada = str(producto["cantidad"])
+
+    wait.until(
+        EC.text_to_be_present_in_element(
+            (By.CSS_SELECTOR, ".shopping_cart_badge"),
+            cantidad_esperada
+        )
+    )
+
+    badge = driver.find_element(
+        By.CSS_SELECTOR, ".shopping_cart_badge"
+    )
+
+    assert badge.text == cantidad_esperada, (
+        f"Se esperaba {cantidad_esperada} producto(s), "
+        f"pero hay {badge.text}"
+    )
+
 
     #  Esperar a que el contador confirme que el producto fue agregado.
     badge = wait.until(
