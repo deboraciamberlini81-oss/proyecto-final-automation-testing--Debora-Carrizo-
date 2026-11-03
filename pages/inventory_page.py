@@ -69,18 +69,10 @@ class InventoryPage:
 
         boton.click()
 
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.CART_BADGE)
-        )
-    def agregar_primer_producto_al_carrito(self):
-        boton = WebDriverWait(self.driver, 10).until(
-            EC.element_to_be_clickable(self.FIRST_ADD_TO_CART)
-        )
-
-        boton.click()
-
-        WebDriverWait(self.driver, 10).until(
-            EC.visibility_of_element_located(self.CART_BADGE)
+        WebDriverWait(self.driver, 15).until(
+            lambda driver: driver.find_element(
+                *self.CART_BADGE
+            ).text == "1"
         )
 
     def agregar_producto_por_nombre(self, nombre):
@@ -99,8 +91,10 @@ class InventoryPage:
                 )
                 boton.click()
 
-                WebDriverWait(self.driver, 10).until(
-                    EC.visibility_of_element_located(self.CART_BADGE)
+                WebDriverWait(self.driver, 15).until(
+                    lambda driver: driver.find_element(
+                        *self.CART_BADGE
+                    ).is_displayed()
                 )
                 return
 
