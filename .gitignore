@@ -19,6 +19,7 @@ logs/*.log
 
 # Reportes y capturas generados
 reports/*.html
+!reports/behave_*.html
 reports/screens/
 reports/*.png
 
@@ -29,3 +30,7 @@ reports/*.png
 *.tmp
 .DS_Store
 Thumbs.db
+
+# Respaldos locales de BDD
+features_backup/
+features_behave_backup/
