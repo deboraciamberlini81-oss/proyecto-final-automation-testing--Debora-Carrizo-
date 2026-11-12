@@ -1,5 +1,6 @@
-
-from selenium.webdriver.common.by import By
+﻿from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 
 class CartPage:
@@ -7,14 +8,17 @@ class CartPage:
         By.CSS_SELECTOR,
         ".header_secondary_container .title"
     )
+
     CART_ITEMS = (
         By.CSS_SELECTOR,
         ".cart_item"
     )
+
     CART_PRODUCT_NAME = (
         By.CSS_SELECTOR,
         ".cart_item .inventory_item_name"
     )
+
     CART_PRODUCT_PRICE = (
         By.CSS_SELECTOR,
         ".cart_item .inventory_item_price"
@@ -22,26 +26,35 @@ class CartPage:
 
     def __init__(self, driver):
         self.driver = driver
+        self.wait = WebDriverWait(driver, 15)
 
     def obtener_titulo(self):
-        return self.driver.find_element(
-            *self.CART_TITLE
-        ).text
+        elemento = self.wait.until(
+            EC.visibility_of_element_located(self.CART_TITLE)
+        )
+        return elemento.text
 
     def obtener_productos(self):
-        return self.driver.find_elements(
-            *self.CART_ITEMS
+        return self.wait.until(
+            EC.presence_of_all_elements_located(self.CART_ITEMS)
         )
-
     def obtener_nombre_producto(self):
-        return self.driver.find_element(
-            *self.CART_PRODUCT_NAME
-        ).text
-        
-    def esta_vacio(self):
-        return len(self.obtener_productos()) == 0 
+        elemento = self.wait.until(
+            EC.visibility_of_element_located(
+                self.CART_PRODUCT_NAME
+            )
+        )
+        return elemento.text
 
     def obtener_precio_producto(self):
-        return self.driver.find_element(
-            *self.CART_PRODUCT_PRICE
-        ).text
+        elemento = self.wait.until(
+            EC.visibility_of_element_located(
+                self.CART_PRODUCT_PRICE
+            )
+        )
+        return elemento.text
+
+    def esta_vacio(self):
+        return len(
+            self.driver.find_elements(*self.CART_ITEMS)
+        ) == 0

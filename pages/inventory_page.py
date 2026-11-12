@@ -1,4 +1,4 @@
-
+﻿
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -40,42 +40,52 @@ class InventoryPage:
 
     def __init__(self, driver):
         self.driver = driver
+        self.wait = WebDriverWait(driver, 15)
 
     def obtener_titulo(self):
-        elemento = WebDriverWait(self.driver, 10).until(
+        elemento = self.wait.until(
             EC.visibility_of_element_located(self.INVENTORY_TITLE)
         )
         return elemento.text
 
     def obtener_productos(self):
-        return self.driver.find_elements(
-            *self.INVENTORY_ITEMS
+        return self.wait.until(
+            EC.presence_of_all_elements_located(
+                self.INVENTORY_ITEMS
+            )
         )
 
     def obtener_nombre_primer_producto(self):
-        return self.driver.find_element(
-            *self.FIRST_PRODUCT_NAME
-        ).text
+        elemento = self.wait.until(
+            EC.visibility_of_element_located(
+                self.FIRST_PRODUCT_NAME
+            )
+        )
+        return elemento.text
 
     def obtener_precio_primer_producto(self):
-        return self.driver.find_element(
-            *self.FIRST_PRODUCT_PRICE
-        ).text
+        elemento = self.wait.until(
+            EC.visibility_of_element_located(
+                self.FIRST_PRODUCT_PRICE
+            )
+        )
+        return elemento.text
 
     def agregar_primer_producto_al_carrito(self):
-        boton = WebDriverWait(self.driver, 10).until(
+        boton = self.wait.until(
             EC.element_to_be_clickable(self.FIRST_ADD_TO_CART)
         )
 
         boton.click()
 
-        WebDriverWait(self.driver, 15).until(
+        self.wait.until(
             lambda driver: driver.find_element(
                 *self.CART_BADGE
             ).text == "1"
         )
 
     def agregar_producto_por_nombre(self, nombre):
+        cantidad_anterior = int(self.obtener_cantidad_carrito())
         productos = self.obtener_productos()
 
         for producto in productos:
@@ -91,15 +101,17 @@ class InventoryPage:
                 )
                 boton.click()
 
-                WebDriverWait(self.driver, 15).until(
-                    lambda driver: driver.find_element(
-                        *self.CART_BADGE
-                    ).is_displayed()
+                self.wait.until(
+                    lambda driver: int(
+                        driver.find_element(
+                             *self.CART_BADGE
+                        ).text
+                    ) == cantidad_anterior + 1
                 )
                 return
 
         raise AssertionError(
-            f"No se encontró el producto: {nombre}"
+        f"No se encontró el producto: {nombre}"
         )
 
     def obtener_cantidad_carrito(self):
@@ -113,20 +125,19 @@ class InventoryPage:
         return "0"
 
     def abrir_carrito(self):
-        enlace = WebDriverWait(self.driver, 15).until(
+        enlace = self.wait.until(
             EC.element_to_be_clickable(self.CART_LINK)
         )
 
-        print("HTML DEL CARRITO:", enlace.get_attribute("outerHTML"))
-        print("URL antes del clic:", self.driver.current_url)
 
         self.driver.execute_script(
             "arguments[0].click();",
             enlace
         )
 
-        WebDriverWait(self.driver, 15).until(
+        self.wait.until(
             EC.url_contains("cart.html")
         )
 
-        print("URL después del clic:", self.driver.current_url)
+
+
