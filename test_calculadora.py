@@ -19,7 +19,6 @@ def numeros_flotantes():
 # SUMAR
 # =========================
 
-@pytest.mark.smoke
 @pytest.mark.parametrize("a, b, esperado", [
     (2, 3, 5),
     (10, 5, 15),
@@ -29,7 +28,6 @@ def test_sumar_exito(a, b, esperado):
     assert sumar(a, b) == esperado
 
 
-@pytest.mark.smoke
 def test_sumar_error(numeros_enteros):
     a, b = numeros_enteros
     assert sumar(a, b) != 20

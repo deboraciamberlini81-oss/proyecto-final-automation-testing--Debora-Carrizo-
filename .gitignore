@@ -1,5 +1,41 @@
+﻿# Python
 __pycache__/
-*.pyc
+*.py[cod]
+*.pyo
+
+# Pytest
 .pytest_cache/
-Tests Pytest Calculadora.html
-Tests Pytest Calculadora_files/
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+
+# Variables de entorno
+.env
+
+# Logs generados
+logs/*.log
+
+# Reportes y capturas generados
+reports/*.html
+!reports/behave_*.html
+reports/screens/
+reports/*.png
+
+# Configuracion local
+.vscode/
+
+# Archivos temporales
+*.tmp
+.DS_Store
+Thumbs.db
+
+# Respaldos locales de BDD
+features_backup/
+features_behave_backup/
+# Copia local duplicada de Behave
+/features_behave/
+
+# Reportes HTML historicos en la raiz
+/*.html

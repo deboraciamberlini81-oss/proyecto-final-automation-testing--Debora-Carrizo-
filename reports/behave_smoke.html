@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>QA Automation - @smoke</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6fa;
+    color: #263238;
+    margin: 0;
+    padding: 30px;
+}
+
+.container {
+    max-width: 1100px;
+    margin: auto;
+}
+
+header {
+    background: #172554;
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+header h1 { margin: 0 0 10px; }
+
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px #0000000d;
+}
+
+.card h2 {
+    font-size: 30px;
+    margin: 8px 0;
+}
+
+.approved { color: #15803d; }
+.failed { color: #dc2626; }
+.skipped { color: #d97706; }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 13px;
+    text-align: left;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+th {
+    background: #e8edf5;
+}
+
+.status {
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status.passed {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status.failed {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.status.skipped, .status.undefined, .status.untested {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.status.unknown {
+    background: #e5e7eb;
+    color: #374151;
+}
+
+footer {
+    margin-top: 25px;
+    color: #64748b;
+    font-size: 12px;
+}
+
+@media (max-width: 700px) {
+    body { padding: 12px; }
+    table { font-size: 12px; }
+    th, td { padding: 8px; }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<header>
+    <h1>QA Automation</h1>
+    <p>Reporte de pruebas BDD - Behave</p>
+    <p>Suite ejecutada: @smoke</p>
+    <p>Resultado general: <strong>PASSED</strong></p>
+</header>
+
+<section class="cards">
+
+<div class="card">
+    <p>Total de escenarios</p>
+    <h2>1</h2>
+</div>
+
+<div class="card">
+    <p>Escenarios aprobados</p>
+    <h2 class="approved">1</h2>
+</div>
+
+<div class="card">
+    <p>Escenarios fallidos</p>
+    <h2 class="failed">0</h2>
+</div>
+
+<div class="card">
+    <p>Escenarios omitidos</p>
+    <h2 class="skipped">0</h2>
+</div>
+
+<div class="card">
+    <p>Porcentaje de aprobación</p>
+    <h2>100.0%</h2>
+</div>
+
+</section>
+
+<h2>Detalle de escenarios</h2>
+
+<table>
+<thead>
+<tr>
+    <th>Característica</th>
+    <th>Escenario</th>
+    <th>Estado</th>
+    <th>Pasos aprobados</th>
+    <th>Ubicación</th>
+</tr>
+</thead>
+
+<tbody>
+<tr><td>Autenticación de usuarios en SauceDemo</td><td>Inicio de sesión exitoso</td><td><span class='status passed'>PASSED</span></td><td>4 / 4</td><td>features/behave/login.feature:14</td></tr>
+</tbody>
+</table>
+
+<footer>
+    <p>Proyecto: QA Automation</p>
+    <p>Herramienta: Behave + Pytest + Selenium</p>
+    <p>Reporte generado automáticamente.</p>
+</footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,18 @@
+
+[
+    {
+        "producto": "Sauce Labs Backpack",
+        "precio": 29.99,
+        "cantidad": 1
+    },
+    {
+        "producto": "Sauce Labs Bike Light",
+        "precio": 9.99,
+        "cantidad": 1
+    },
+    {
+        "producto": "Sauce Labs Bolt T-Shirt",
+        "precio": 15.99,
+        "cantidad": 1
+    }
+]
