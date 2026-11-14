@@ -1,82 +1,126 @@
-# Proyecto Final - QA Automation | Débora Carrizo
+#  Proyecto Final – QA Automation | Python, Selenium y API Testing
 
-Framework de automatización de pruebas funcionales, de interfaz web y API, desarrollado con Python. Integra Selenium WebDriver, Pytest, Page Object Model (POM), Behave (BDD) y ejecución continua mediante GitHub Actions.
+##  Descripción del proyecto
 
-## Objetivo
+Este proyecto consiste en el desarrollo de una solución integral de **QA Automation**, orientada a validar la calidad, funcionalidad y estabilidad de una aplicación web mediante pruebas automatizadas de interfaz de usuario, servicios API y escenarios BDD.
 
-Desarrollar una solución de automatización que permita validar funcionalidades críticas de una aplicación web, comprobar servicios REST y ejecutar escenarios de prueba bajo distintos enfoques de testing.
+Se implementó una arquitectura organizada bajo el patrón **Page Object Model (POM)**, utilizando Python, Selenium WebDriver y Pytest. Además, se incorporaron pruebas parametrizadas, gestión de datos externos, reportes HTML, logging y ejecución continua mediante GitHub Actions.
 
-Aplicación web utilizada: [SauceDemo](https://www.saucedemo.com/).
+El objetivo fue desarrollar una estructura de testing reutilizable, mantenible y escalable, aplicando buenas prácticas de automatización y control de calidad de software.
 
-Servicios de API utilizados: JSONPlaceholder y Reqres.
+##  Tecnologías y herramientas
 
-## Tecnologías y herramientas
+| Tecnología | Aplicación |
+|---|---|
+| Python 3.12 | Lenguaje de programación |
+| Selenium WebDriver | Automatización de interfaz web |
+| Pytest | Ejecución y organización de pruebas |
+| Page Object Model | Arquitectura y reutilización de código |
+| Requests | Consumo y validación de APIs |
+| Behave | Automatización BDD |
+| Gherkin | Definición de escenarios funcionales |
+| Postman / API Testing | Validación de servicios |
+| Git y GitHub | Control de versiones |
+| GitHub Actions | Integración continua (CI) |
+| pytest-html | Generación de reportes |
+| Logging | Registro de ejecución y diagnóstico |
+| JSON y CSV | Gestión de datos de prueba |
 
-- Python 3.12
-- Selenium WebDriver
-- Pytest
-- Page Object Model (POM)
-- Behave y Gherkin (BDD)
-- Requests
-- Faker
-- pytest-html
-- Git y GitHub
-- GitHub Actions
-- Visual Studio Code
+##  Módulos implementados
 
-## Cobertura de pruebas
+### 1. Automatización de interfaz de usuario (UI Testing)
 
-### 1. Pruebas de interfaz (UI Testing)
+Automatización de flujos funcionales sobre SauceDemo.
 
-Automatización de funcionalidades de SauceDemo:
+- Validación de inicio de sesión positivo y negativo.
+- Verificación de mensajes de error.
+- Validación del catálogo de productos.
+- Selección y agregado de productos al carrito.
+- Verificación de cantidades y contenido del carrito.
+- Pruebas parametrizadas con diferentes datos.
+- Uso de esperas explícitas para mejorar la estabilidad.
 
-- Inicio de sesión exitoso.
-- Validación de credenciales incorrectas.
-- Verificación de usuarios bloqueados.
-- Visualización del catálogo de productos.
-- Incorporación de productos al carrito.
-- Validación del contador y contenido del carrito.
-- Pruebas parametrizadas.
-- Validaciones múltiples mediante soft assertions.
+### 2. Arquitectura Page Object Model (POM)
 
-### 2. Pruebas de API (API Testing)
+Implementación de una estructura basada en objetos de página para separar la lógica de interacción de las pruebas.
 
-Validación de servicios REST mediante Requests:
+Clases principales:
+- `LoginPage`
+- `InventoryPage`
+- `CartPage`
 
-- GET: consulta de recursos.
-- POST: creación de recursos.
-- PUT: actualización completa.
-- PATCH: actualización parcial.
-- DELETE: eliminación de recursos.
-- Validación de códigos HTTP y respuestas JSON.
-- Pruebas positivas y negativas de autenticación.
-- Ciclo de vida de un recurso mediante POST, PATCH y DELETE.
+Beneficios:
+- Reutilización de métodos.
+- Menor duplicación de código.
+- Mantenimiento más sencillo.
+- Separación de responsabilidades.
+- Mayor escalabilidad de la automatización.
 
-**Nota:** JSONPlaceholder y Reqres son servicios de demostración. Las operaciones de escritura no representan persistencia real de datos.
+### 3. Pruebas API Testing
 
-### 3. Pruebas BDD (Behavior Driven Development)
+Implementación de pruebas automatizadas para validar servicios REST.
 
-Implementación de escenarios con Behave y Gherkin:
+Servicios utilizados:
+- JSONPlaceholder.
+- Reqres.
 
-- Suite Smoke: validación del inicio de sesión exitoso.
-- Suite Regression: carrito de compras y escenarios de autenticación.
-- Integración de Behave con Pytest.
-- Generación de reportes HTML, JSON y texto.
+Validaciones realizadas:
+- Métodos HTTP GET, POST y DELETE.
+- Códigos de estado HTTP.
+- Validación de respuestas JSON.
+- Creación y consulta de usuarios.
+- Validación de autenticación.
+- Pruebas de ciclo de vida y secuencias de operaciones.
+- Gestión de API Key mediante variables de entorno y secretos de GitHub.
 
-### 4. Arquitectura y buenas prácticas
+### 4. Automatización BDD – Behave
 
-- Page Object Model para separar la lógica de interacción con la interfaz.
-- Esperas explícitas para mejorar la sincronización.
-- Fixtures reutilizables.
-- Parametrización de escenarios.
-- Marcadores de Pytest.
-- Utilidades compartidas para solicitudes HTTP y datos.
-- Logging y capturas automáticas ante fallos.
+Implementación de escenarios funcionales utilizando metodología Behavior Driven Development.
 
-## Estructura del proyecto
+- Escenarios escritos en lenguaje Gherkin.
+- Separación entre archivos `.feature` y definiciones de pasos.
+- Automatización de escenarios de login y carrito.
+- Organización de pruebas Smoke y Regression.
+- Generación de reportes específicos para BDD.
+
+### 5. Pruebas parametrizadas y gestión de datos
+
+Implementación de datos externos para ampliar la cobertura de pruebas.
+
+- Archivos CSV para credenciales.
+- Archivos JSON para información de productos.
+- Ejecución de múltiples combinaciones de datos.
+- Separación entre datos y lógica de automatización.
+
+### 6. Reportes, evidencias y logging
+
+Configuración de herramientas para facilitar el seguimiento y análisis de las ejecuciones.
+
+- Reportes HTML de Pytest.
+- Reportes HTML de Behave.
+- Registro de eventos mediante Logging.
+- Capturas de pantalla para evidenciar fallos.
+- Organización de archivos de reportes, evidencias y logs.
+
+### 7. Integración continua – GitHub Actions
+
+Configuración de un workflow para ejecutar automáticamente la suite de pruebas.
+
+Características:
+- Ejecución en entorno Ubuntu.
+- Configuración de Python 3.12.
+- Instalación de dependencias.
+- Configuración de Chrome.
+- Ejecución automatizada con Pytest.
+- Uso de secretos para credenciales sensibles.
+- Publicación de reportes y evidencias como artefactos.
+
+El workflow permite verificar el estado de las pruebas ante cambios en el repositorio y mantener un control continuo de calidad.
+
+## 📂 Estructura principal del proyecto
 
 ```text
-proyecto-final-automation-testing-debora-carrizo/
+proyecto-final-automation-testing/
 │
 ├── .github/
 │   └── workflows/
@@ -87,49 +131,32 @@ proyecto-final-automation-testing-debora-carrizo/
 │   └── productos.json
 │
 ├── features/
-│   └── behave/
-│       ├── cart.feature
-│       ├── login.feature
-│       ├── environment.py
-│       └── steps/
-│           ├── cart_steps.py
-│           └── login_steps.py
+│   ├── behave/
+│   ├── steps/
+│   ├── cart.feature
+│   └── login.feature
 │
 ├── pages/
-│   ├── __init__.py
 │   ├── login_page.py
 │   ├── inventory_page.py
 │   └── cart_page.py
 │
 ├── reports/
 │   ├── behave_smoke.html
-│   ├── behave_smoke.json
-│   ├── behave_smoke_pretty.txt
-│   ├── behave_regression.html
-│   ├── behave_regression.json
-│   ├── behave_regression_pretty.txt
-│   └── inventario_saucedemo.png
+│   └── behave_regression.html
 │
 ├── tests/
 │   ├── conftest.py
-│   ├── test_carrito.py
-│   ├── test_carrito_json.py
-│   ├── test_cart_bdd.py
-│   ├── test_catalogo.py
 │   ├── test_login.py
-│   ├── test_login_bdd.py
-│   ├── test_login_csv.py
-│   ├── test_login_parametrizado.py
-│   ├── test_soft_asserts.py
-│   └── saucedemo_original.py
+│   ├── test_carrito.py
+│   ├── test_catalogo.py
+│   └── ...
 │
 ├── tests_api/
-│   ├── __init__.py
-│   ├── test_create_user_api.py
 │   ├── test_http.py
 │   ├── test_login_api.py
-│   ├── test_post_lifecycle.py
-│   └── test_users_api.py
+│   ├── test_users_api.py
+│   └── ...
 │
 ├── tests_behave/
 │   └── test_behave_suite.py
@@ -140,120 +167,68 @@ proyecto-final-automation-testing-debora-carrizo/
 │   └── http.py
 │
 ├── logs/
-├── assets/
-├── clase05/
-├── .gitignore
-├── behave.ini
 ├── pytest.ini
+├── behave.ini
 ├── requirements.txt
 └── README.md
 ```
 
-## Instalación y configuración
+##  Ejecución del proyecto
 
-### Requisitos previos
-
-- Python 3.12.
-- Anaconda o Miniconda.
-- Google Chrome.
-- Git.
-
-### 1. Clonar el repositorio
+Clonar el repositorio:
 
 ```bash
 git clone https://github.com/deboraciamberlini81-oss/pre-entrega-debora-carrizo.git
+```
+
+Ingresar al directorio:
+
+```bash
 cd pre-entrega-debora-carrizo
 ```
 
-### 2. Activar el entorno
+Instalar dependencias:
 
 ```bash
-conda activate qa-automation
+pip install -r requirements.txt
 ```
 
-### 3. Instalar dependencias
-
-```bash
-python -m pip install -r requirements.txt
-```
-
-## Ejecución de pruebas
-
-### Suite completa
+Ejecutar la suite de pruebas:
 
 ```bash
 python -m pytest
 ```
 
-### Pruebas de interfaz
+Los reportes se generan dentro del directorio `reports/`.
 
-```bash
-python -m pytest tests -v
-```
+##  Resultado del proyecto
 
-### Pruebas de API
+- Suite local validada: **39 pruebas aprobadas** en la última ejecución completa.
+- Automatización UI, API y BDD implementada.
+- Arquitectura POM organizada y reutilizable.
+- Reportes HTML y logging configurados.
+- Workflow de GitHub Actions ejecutado correctamente.
+- Integración final publicada en la rama `master`.
 
-```bash
-python -m pytest tests_api -v
-```
+<https://github.com/deboraciamberlini81-oss/pre-entrega-debora-carrizo>
 
-### Integración BDD
+##  Competencias aplicadas
 
-```bash
-python -m pytest tests_behave -v
-```
+- QA Automation.
+- Python y programación orientada a objetos.
+- Selenium WebDriver.
+- Diseño y mantenimiento de pruebas automatizadas.
+- API Testing.
+- Metodología BDD.
+- Gestión de datos de prueba.
+- Análisis de resultados y debugging.
+- Control de versiones con Git.
+- Integración continua y CI/CD.
 
-### Ejecución por marcadores
+---
 
-```bash
-python -m pytest -m smoke
-python -m pytest -m api
-python -m pytest -m regression
-```
+**Autora:** Débora Carrizo  
+**Proyecto:** QA Automation – Proyecto Final  
+**Rama principal:** `master`  
+**Estado:** Finalizado – GitHub Actions en verde.
 
-## Reportes y evidencias
-
-El proyecto genera reportes HTML mediante pytest-html y reportes específicos para las suites BDD.
-
-Las evidencias incluyen:
-
-- Resultados de ejecución.
-- Capturas de pantalla ante fallos.
-- Registros de actividad.
-- Reportes HTML.
-- Resultados estructurados en JSON.
-- Detalle de escenarios y pasos BDD.
-- Captura de referencia del inventario de SauceDemo.
-
-Los reportes generales de Pytest y los registros se generan durante la ejecución. Los artefactos de CI se publican mediante GitHub Actions.
-
-## Integración continua (CI)
-
-El workflow ubicado en `.github/workflows/qa-tests.yml` ejecuta las pruebas automáticamente ante los eventos configurados en GitHub.
-
-El pipeline contempla:
-
-1. Descarga del repositorio.
-2. Configuración de Python 3.12.
-3. Instalación de Google Chrome.
-4. Instalación de dependencias.
-5. Ejecución de Pytest.
-6. Publicación de reportes, logs y capturas como artefactos.
-
-## Resultados de validación
-
-En la ejecución documentada del 12 de noviembre de 2026:
-
-| Suite | Aprobados | Fallidos | Omitidos |
-|---|---:|---:|---:|
-| Pytest general | 39 | 0 | 0 |
-| BDD Smoke | 1 | 0 | 0 |
-| BDD Regression | 4 | 0 | 0 |
-
-Los resultados corresponden a una ejecución concreta y pueden variar en futuras ejecuciones.
-
-## Autora
-
-**Débora Carrizo**
-
-Proyecto de práctica y desarrollo de habilidades en QA Automation, Testing funcional, pruebas de API y automatización basada en comportamiento.
