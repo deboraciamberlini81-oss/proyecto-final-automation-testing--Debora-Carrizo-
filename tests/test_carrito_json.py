@@ -7,6 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from utils.datos import leer_json
 from pages.inventory_page import InventoryPage
+from pages.cart_page import CartPage
 
 
 PRODUCTOS = leer_json("productos.json")
@@ -173,62 +174,33 @@ def test_agregar_producto_desde_json(usuario_logueado, producto):
     )
 
 
+
+
 @pytest.mark.smoke
 def test_carrito_smoke(usuario_logueado):
     """Verifica que se pueda agregar un producto al carrito."""
-    driver = usuario_logueado
-    wait = WebDriverWait(driver, 10)
 
-    primer_producto = wait.until(
-        EC.presence_of_element_located(
-            (By.CSS_SELECTOR, ".inventory_item")
-        )
-    )
+    inventory_page = InventoryPage(usuario_logueado)
 
-    nombre = primer_producto.find_element(
-        By.CSS_SELECTOR, ".inventory_item_name"
-    ).text
+    nombre = inventory_page.obtener_nombre_primer_producto()
 
-    boton = primer_producto.find_element(
-        By.CSS_SELECTOR, "button"
-    )
+    inventory_page.agregar_primer_producto_al_carrito()
 
-    print(f"Botón antes del clic: {boton.text}")
-    boton.click()
+    cantidad = inventory_page.obtener_cantidad_carrito()
 
-    boton_actualizado = wait.until(
-        lambda d: d.find_element(
-            By.CSS_SELECTOR, ".inventory_item button"
-        ).text == "Remove"
-    )
-
-    print("El botón cambió a Remove")
-    print(f"URL actual: {driver.current_url}")
-
-    insignias = driver.find_elements(
-        By.CLASS_NAME, "shopping_cart_badge"
-    )
-
-    print(f"Cantidad de contadores encontrados: {len(insignias)}")
-
-    if insignias:
-        print(f"Texto del contador: {insignias[0].text}")
-
-    assert insignias and insignias[0].text == "1", (
+    assert cantidad == "1", (
         "El producto no actualizó el contador del carrito"
     )
 
-    inventory_page = InventoryPage(driver)
     inventory_page.abrir_carrito()
-    
-    wait.until(EC.url_contains("/cart.html"))
 
-    producto_carrito = wait.until(
-        EC.visibility_of_element_located(
-            (By.CSS_SELECTOR, ".cart_item .inventory_item_name")
-        )
-    )
+    cart_page = CartPage(usuario_logueado)
 
-    assert producto_carrito.text == nombre
+    productos_carrito = cart_page.obtener_productos()
 
-    print(f"\nSmoke OK: {nombre} agregado al carrito")
+    assert len(productos_carrito) == 1
+
+    assert cart_page.obtener_nombre_producto() == nombre
+
+    print(f"Producto agregado correctamente: {nombre}")
+    print("Carrito OK")
