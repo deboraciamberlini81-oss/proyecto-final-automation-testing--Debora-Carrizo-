@@ -38,6 +38,8 @@ jobs:
           pip install -r requirements.txt
 
       - name: Ejecutar pruebas y generar reporte
+        env:
+          REQRES_API_KEY: ${{ secrets.REQRES_API_KEY }}
         run: python -m pytest
 
       - name: Adjuntar reporte, logs y capturas

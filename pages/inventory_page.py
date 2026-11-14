@@ -90,19 +90,21 @@ class InventoryPage:
                     By.CSS_SELECTOR,
                     "button"
                 )
+
                 boton.click()
 
+                cantidad_esperada = str(cantidad_anterior + 1)
+
                 self.wait.until(
-                    lambda driver: int(
-                        driver.find_element(
-                             *self.CART_BADGE
-                        ).text
-                    ) == cantidad_anterior + 1
+                    EC.text_to_be_present_in_element(
+                        self.CART_BADGE,
+                        cantidad_esperada
+                    )
                 )
                 return
 
         raise AssertionError(
-        f"No se encontró el producto: {nombre}"
+            f"No se encontró el producto: {nombre}"
         )
 
     def obtener_cantidad_carrito(self):
@@ -119,7 +121,6 @@ class InventoryPage:
         enlace = self.wait.until(
             EC.element_to_be_clickable(self.CART_LINK)
         )
-
 
         self.driver.execute_script(
             "arguments[0].click();",

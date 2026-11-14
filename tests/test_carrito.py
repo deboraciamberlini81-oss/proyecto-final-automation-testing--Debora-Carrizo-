@@ -27,7 +27,6 @@ def test_agregar_producto_al_carrito(driver):
 
     assert inventory_page.obtener_cantidad_carrito() == "1"
 
-    
     inventory_page.abrir_carrito()
 
     WebDriverWait(driver, 10).until(
@@ -46,7 +45,8 @@ def test_agregar_producto_al_carrito(driver):
         cart_page.obtener_nombre_producto()
         == nombre_producto
     )
+
     assert cart_page.obtener_precio_producto() == precio_producto
-    
+
     print(f"Producto agregado correctamente: {nombre_producto}")
     print("Carrito OK")
