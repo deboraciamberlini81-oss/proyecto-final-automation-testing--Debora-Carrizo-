@@ -72,17 +72,8 @@ class InventoryPage:
         return elemento.text
 
     def agregar_primer_producto_al_carrito(self):
-        boton = self.wait.until(
-            EC.element_to_be_clickable(self.FIRST_ADD_TO_CART)
-        )
-
-        boton.click()
-
-        self.wait.until(
-            lambda driver: driver.find_element(
-                *self.CART_BADGE
-            ).text == "1"
-        )
+        nombre_producto = self.obtener_nombre_primer_producto()
+        self.agregar_producto_por_nombre(nombre_producto)
 
     def agregar_producto_por_nombre(self, nombre):
         cantidad_anterior = int(self.obtener_cantidad_carrito())
