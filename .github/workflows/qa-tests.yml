@@ -49,6 +49,8 @@ jobs:
           name: qa-reportes-y-evidencias
           path: |
             reports/report.html
+            reports/behave_smoke.html
+            reports/behave_regression.html
             reports/screens/*.png
             logs/suite.log
           if-no-files-found: warn
